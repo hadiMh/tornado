@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4775b166-37cf-4119-a70d-948ec24ff8a4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mydb.py" beforeDir="false" afterPath="$PROJECT_DIR$/mydb.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/server.py" afterDir="false" />
@@ -48,8 +47,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="661">
-              <caret line="100" column="58" selection-start-line="100" selection-start-column="58" selection-end-line="100" selection-end-column="58" />
+            <state relative-caret-position="495">
+              <caret line="305" column="48" selection-start-line="305" selection-start-column="48" selection-end-line="305" selection-end-column="48" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
                 <element signature="e#4335#4402#0" />
@@ -61,13 +60,24 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mydb.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="949">
-              <caret line="67" column="42" selection-start-line="67" selection-start-column="42" selection-end-line="67" selection-end-column="42" />
+            <state relative-caret-position="716">
+              <caret line="115" selection-start-line="115" selection-end-line="115" />
               <folding>
                 <element signature="e#0#22#0" expanded="true" />
                 <element signature="e#230#594#0" />
                 <element signature="e#621#767#0" />
+                <element signature="e#827#1253#0" />
+                <element signature="e#1316#1535#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="das://598a6741-1aeb-46be-9be7-ed2d3949f1aa/schema/tickets/table/tickets">
+          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+            <state>
+              <filtering enabled="true" />
             </state>
           </provider>
         </entry>
@@ -93,6 +103,11 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>exist</find>
+      <find>SendTicketHandler</find>
+      <find>saveticket</find>
+      <find>ticket</find>
+      <find>myresult[0]</find>
+      <find>createUserTicketList</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -226,12 +241,12 @@
       <workItem from="1553981739550" duration="1105000" />
       <workItem from="1553983638167" duration="3508000" />
       <workItem from="1554011210980" duration="1236000" />
-      <workItem from="1554012563805" duration="3213000" />
+      <workItem from="1554012563805" duration="7620000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15223000" />
+    <option name="totallyTimeSpent" value="19630000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -244,20 +259,19 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="134" y="35" width="3706" height="2125" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.09873138" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32993016" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32973558" />
       <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.23475446" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39989206" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32993016" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32973558" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.39827308" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.17808959" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.32993016" />
       <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
@@ -278,15 +292,30 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/mydb.py</url>
-          <line>64</line>
+          <line>65</line>
           <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/server.py</url>
+          <line>291</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/mydb.py</url>
+          <line>115</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/server.py</url>
+          <line>50</line>
+          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/untitled$test2.coverage" NAME="test2 Coverage Results" MODIFIED="1553984932310" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/untitled$test.coverage" NAME="test Coverage Results" MODIFIED="1554015883842" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/untitled$test.coverage" NAME="test Coverage Results" MODIFIED="1554020373819" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file:///usr/local/lib/python2.7/dist-packages/torndb.py">
@@ -325,17 +354,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/.local/lib/python2.7/site-packages/mysql/connector/connection.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="436">
-          <caret line="493" selection-start-line="493" selection-end-line="493" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.local/lib/python2.7/site-packages/tornado/web.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="451">
           <caret line="1589" selection-start-line="1589" selection-end-line="1589" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.local/lib/python2.7/site-packages/mysql/connector/connection.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="436">
+          <caret line="493" selection-start-line="493" selection-end-line="493" />
         </state>
       </provider>
     </entry>
@@ -346,22 +375,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="das://598a6741-1aeb-46be-9be7-ed2d3949f1aa/schema/tickets/table/tickets">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/mydb.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="949">
-          <caret line="67" column="42" selection-start-line="67" selection-start-column="42" selection-end-line="67" selection-end-column="42" />
+        <state relative-caret-position="716">
+          <caret line="115" selection-start-line="115" selection-end-line="115" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
             <element signature="e#230#594#0" />
             <element signature="e#621#767#0" />
+            <element signature="e#827#1253#0" />
+            <element signature="e#1316#1535#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/server.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="661">
-          <caret line="100" column="58" selection-start-line="100" selection-start-column="58" selection-end-line="100" selection-end-column="58" />
+        <state relative-caret-position="495">
+          <caret line="305" column="48" selection-start-line="305" selection-start-column="48" selection-end-line="305" selection-end-column="48" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
             <element signature="e#4335#4402#0" />

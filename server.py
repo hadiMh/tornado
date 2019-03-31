@@ -9,19 +9,8 @@ import random
 from binascii import hexlify
 from time import gmtime, strftime
 import mydb
-
-define("port", default=3000, help="run on the given port", type=int)
-define("mysql_host", default="localhost:3306", help="database host")
-define("mysql_database", default="tornadoapp1", help="database name")
-define("mysql_user", default="root", help="database user")
-define("mysql_password", default="", help="database password")
-#
-# myDbConnection = Connection(
-#             host=options.mysql_host, database=options.mysql_database,
-#             user=options.mysql_user, password=options.mysql_password
-#             )
-#
-# print(options.mysql_database)
+import json
+import collections
 
 admins = [
     {
@@ -44,11 +33,13 @@ tickets = []
 def createUserTicketList(userTicketList):
     result = {}
 
-    result["tickets"] = "There Are -%d- Ticket" % len(userTicketList)
-    result["code"] = "200"
+    result[" tickets"] = "There Are -%d- Ticket" % len(userTicketList)
+    result[" code"] = "200"
 
-    for idx, value in enumerate(userTicketList):
-        result["block %d" % idx] = {
+    i = 0
+
+    for value in userTicketList:
+        result["block %d" % i] = {
             "subject": value["subject"],
             "body": value["body"],
             "status": value["status"],
@@ -56,13 +47,8 @@ def createUserTicketList(userTicketList):
             "date": "2019-05-21 15:18:17",
             "response": value["response"]
         }
+        i=i+1
     return result
-
-def getTicketId():
-    if(not tickets):
-        return 1
-    return tickets[len(tickets)-1]["id"]+1
-
 def getQueryParametes(self, parameters):
     returnValues = []
     for value in parameters:
@@ -273,27 +259,20 @@ class SendTicketHandler(MyRequestHandler):
                 "message": "subject and body of the ticket are required."
             })
             return
-        user = getUserByToken(token)
+
+        user = mydb.getUserByToken(token)
+
         if(not user):
             self.write({
                 "message": "token not valid"
             })
             return
 
-        id = getTicketId()
+        ticketId = mydb.saveTicket(user['username'], subject, body)
 
-        tickets.append({
-            "username": user["username"],
-            "subject": subject,
-            "body": body,
-            "id": id,
-            "date": strftime("%Y-%m-%d %H:%M:%S", gmtime()),
-            "status": "Open",
-            "response": ""
-        })
         self.write({
              "message": "Ticket Sent Successfully",
-             "id": id,
+             "id": ticketId,
              "code": "200"
         })
 
@@ -310,7 +289,7 @@ class UserGetTicketHandler(MyRequestHandler):
             })
             return
 
-        user = getUserByToken(token)
+        user = mydb.getUserByToken(token)
 
         if not user:
             self.write({
@@ -318,12 +297,13 @@ class UserGetTicketHandler(MyRequestHandler):
             })
             return
 
-        userTickets = getUserAllTickets(user["username"])
+        userTickets = mydb.getAllUserTickets(user['username'])
+
         numberOfTickets = len(userTickets)
         correctFormatUserTicketsList = createUserTicketList(userTickets)
 
         self.write(
-            correctFormatUserTicketsList
+            collections.OrderedDict(sorted(correctFormatUserTicketsList.items()))
         )
 
 class UserCloseTicketHandler(MyRequestHandler):
@@ -457,7 +437,6 @@ def make_app():
     urls = [
         # ("/", HelloHandler),
         # (r"/hadi/([^/]+)?", SecondHandler)
-        (r"/login/([^/]+)?/([^/]+)?", LoginHandler),
         (r"/signup(.*)", SignupHandler),
         (r"/login(.*)", LoginHandler),
         (r"/logout(.*)", LogoutHandler),
