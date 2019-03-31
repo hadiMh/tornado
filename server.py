@@ -92,15 +92,14 @@ def generateRandomToken():
     return hexlify(os.urandom(16)).decode('utf-8')
 
 def getUserLoginToken(username):
-    user = findUser(username)
-    if(user == -1):
-        token = generateRandomToken()
-        # user["token"] = token
+    user = mydb.doesThisUserAlreadyExist(username)
+    if(not user):
+        print("no such user exists for login")
     else:
-        if(user["token"] == ""):
-            token = generateRandomToken()
-            user["token"] = token
-        return user["token"]
+        if(not user["token"] or user["token"] == ""):
+            user['token'] = generateRandomToken()
+            mydb.saveTokenToThisUser(username, user['token'])
+        return user['token']
 
 def changeTicketStatus(tickets, ticketId, newStatus):
     for item in tickets:
@@ -156,33 +155,26 @@ class MyRequestHandler(RequestHandler):
 class SignupHandler(MyRequestHandler):
     def get(self, *args):
         username, password, firstname, lastname = getQueryParametes(self, ['username', 'password', 'firstname', 'lastname'])
-
-        mydb.doesThisUserAlreadyExist(username)
         ## username = re.search("(?<=username=)([^&]+)?", self.request.uri)
         ## password = re.search("(?<=password=)([^&]+)?", self.request.uri)
         ## firstname = re.search("(?<=firstname=)([^&]+)?", self.request.uri)
         ## lastname = re.search("(?<=lastname=)([^&]+)?", self.request.uri)
+
         if(not username or not password):
             self.write({"message:": "username and password are required"})
-        if(firstname):
-            firstname = firstname.group()
-        else:
-            firstname = ""
-        if(lastname):
-            lastname = lastname.group()
-        else:
-            lastname = ""
+            return
 
-        userExists = False
+        if(not firstname):
+            firstname = ""
+
+        if(not lastname):
+            lastname = ""
 
         # check if user already exists in the saved users
         userExists = mydb.doesThisUserAlreadyExist(username)
-        # for item in users:
-        #     if (item["username"] == username):
-        #         userExists = True
-        #         break
 
         if not userExists:
+            mydb.createUserInUsersTable(username, password, firstname, lastname)
             users.append(
                 {
                     "username": username,
@@ -199,31 +191,29 @@ class SignupHandler(MyRequestHandler):
         else:
             self.write("user already exists")
 
-        print(users)
-
 class LoginHandler(MyRequestHandler):
     def get(self, *args):
         # get username and password that the request contains
         username, password = getQueryParametes(self, ['username', 'password'])
-        ## username = re.search("(?<=username=)([^&]+)?", self.request.uri)
-        ## password = re.search("(?<=password=)([^&]+)?", self.request.uri)
+
         # if username or password are not in the request
         if(not username or not password):
             self.write({
                 "message": "username and password are required."
             })
             return
+
         # find the user if exist
-        user = findUser(username)
+        user = mydb.doesThisUserAlreadyExist(username)
         # if user doesnt exist, tell it to response
-        if user == -1:
+        if not user:
             self.write({
                 "message": "user doesn't exist in the database."
             })
             return
-
+        print("user", user)
         # if user exist and the password is correct
-        if (user != -1) and user["password"] == password:
+        if (user) and user["password"] == password:
             # the below function, saves the token in the user data
             token = getUserLoginToken(username=username)
             self.write({
