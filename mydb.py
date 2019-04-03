@@ -84,7 +84,8 @@ def getUserByToken(token):
             "password": myresult[0][2],
             "firstname": myresult[0][3],
             "lastanme": myresult[0][4],
-            "token": myresult[0][5]
+            "token": myresult[0][5],
+            "isAdmin": myresult[0][6]
         }
     return 0
 
@@ -127,3 +128,79 @@ def getAllUserTickets(username):
         return json
 
     return 0
+
+def clearUserToken(username, password):
+    mycursor = mydb.cursor()
+
+    sql = "SELECT * FROM users WHERE username = %s"
+    value = (username,)
+
+    mycursor.execute(sql, value)
+
+    myresult = mycursor.fetchall()
+    user = 0
+    if mycursor.rowcount >= 1:
+        user = {
+            "username": myresult[0][1],
+            "password": myresult[0][2],
+            "firstname": myresult[0][3],
+            "lastanme": myresult[0][4],
+            "token": myresult[0][5]
+        }
+    if(user == 0):
+        return 0
+
+    if password != user['password']:
+        return 0
+
+    mycursor = mydb.cursor()
+
+    sql = "UPDATE users SET token = %s WHERE username = %s"
+    value = ('', username)
+
+    mycursor.execute(sql, value)
+
+    mydb.commit()
+
+    if (mycursor.rowcount >= 1):
+        print("logout was successful for %s" % username)
+    else:
+        return 0
+
+    return 1
+
+def changeTicketStatus(ticketId, newStatus):
+    mycursor = mydb.cursor()
+
+    sql = "UPDATE tickets SET status = %s WHERE id = %s"
+    value = (newStatus, ticketId)
+
+    mycursor.execute(sql, value)
+
+    mydb.commit()
+
+    print("ticket id=%s was changed status to %s" % (ticketId, newStatus))
+
+    return 1
+
+def isThisTokenAdmin(token):
+    user = getUserByToken(token)
+    if not user:
+        return 0
+    if user['isAdmin'] == 1:
+        return True
+    return False
+
+def saveThisResponseForThisTicket(id, body):
+    mycursor = mydb.cursor()
+
+    sql = "UPDATE tickets SET response = %s, status = %s WHERE id = %s"
+    value = (body, 'Closed', id)
+
+    mycursor.execute(sql, value)
+
+    mydb.commit()
+
+    print("ticket id=%s was set response to %s" % (id, body))
+
+    return 1

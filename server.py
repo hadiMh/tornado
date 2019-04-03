@@ -215,26 +215,26 @@ class LoginHandler(MyRequestHandler):
 
 class LogoutHandler(MyRequestHandler):
     def get(self, *args):
-        username = re.search("(?<=username=)([^&]+)?", self.request.uri)
-        password = re.search("(?<=password=)([^&]+)?", self.request.uri)
+        username, password = getQueryParametes(self, ['username', 'password'])
         if (not username or not password):
             self.write({
                 "message": "username and password are required."
             })
             return
         # find the user if exist
-        user = findUser(username.group())
+        user = mydb.clearUserToken(username, password)
         # if user doesnt exist, tell it to response
-        if user == -1:
+        if not user:
             self.write({
-                "message": "user doesn't exist in the database."
+                "message": "user have already logged out or "
+                           "user doesn't exist in the database or "
+                           "your password is not correct"
             })
             return
 
         # if user exist and the password is correct
-        if (user != -1) and user["password"] == password.group():
+        if (user):
             # clear the token so the user is logged out
-            user["token"] = ""
             self.write({
                 "message": "Logged Out Successfully",
                 "code": "200"
@@ -276,10 +276,6 @@ class SendTicketHandler(MyRequestHandler):
              "code": "200"
         })
 
-class GetAllTicketsHandler(MyRequestHandler):
-    def get(self, *args):
-        print(tickets)
-
 class UserGetTicketHandler(MyRequestHandler):
     def get(self, *args):
         token = getQueryParametes(self, ['token'])[0]
@@ -309,11 +305,11 @@ class UserGetTicketHandler(MyRequestHandler):
 class UserCloseTicketHandler(MyRequestHandler):
     def get(self, *args):
         token, id = getQueryParametes(self, ['token', 'id'])
-        user = getUserByToken(token)
-        userTickets = getUserAllTickets(user["username"])
-        if(changeTicketStatus(userTickets, id, "Closed")):
+        user = mydb.getUserByToken(token)
+        userTickets = mydb.getAllUserTickets(user["username"])
+        if(mydb.changeTicketStatus(id, "Closed")):
             self.write({
-                "message": "Ticket With id -%d- Closed Successfully" % id,
+                "message": "Ticket With id -%s- Closed Successfully" % id,
                 "code": "200"
             })
             return
@@ -326,27 +322,27 @@ class UserCloseTicketHandler(MyRequestHandler):
 
 class AdminGetAllTicketsHandler(MyRequestHandler):
     def get(self, *args):
-        token = getQueryParametes(self, ['token'])[0]
+        token, = getQueryParametes(self, ['token'])
         if (not token):
             self.write({
                 "message": "request in correct format"
             })
             return
 
-        user = getUserByToken(token)
+        user = mydb.getUserByToken(token)
 
-        if not user or not isThisUsernameAdmin(user["username"]):
+        if not user or not mydb.isThisTokenAdmin(token):
             self.write({
                 "message": "token is not valid"
             })
             return
 
-        userTickets = getUserAllTickets(user["username"])
+        userTickets = mydb.getAllUserTickets(user["username"])
         numberOfTickets = len(userTickets)
         correctFormatUserTicketsList = createUserTicketList(userTickets)
 
         self.write(
-            correctFormatUserTicketsList
+            collections.OrderedDict(sorted(correctFormatUserTicketsList.items()))
         )
 
 class AdminAnswerToTicketHandler(MyRequestHandler):
@@ -363,20 +359,20 @@ class AdminAnswerToTicketHandler(MyRequestHandler):
             })
             return
 
-        user = getUserByToken(token)
+        user = mydb.getUserByToken(token)
         if not user:
             self.write({
                 "message": "token is not valid"
             })
             return
 
-        if not isThisUsernameAdmin(user["username"]):
+        if not mydb.isThisTokenAdmin(token):
             self.write({
                 "message": "token is not valid"
             })
             return
 
-        if saveThisResponseForThisTicket(id, body):
+        if mydb.saveThisResponseForThisTicket(id, body):
             self.write({
                 "message": "Response to Ticket With id -%s- Sent Successfully" % id,
                 "code": "200"
@@ -401,20 +397,20 @@ class AdminChangeTicketStatus(MyRequestHandler):
             })
             return
 
-        user = getUserByToken(token)
+        user = mydb.getUserByToken(token)
         if not user:
             self.write({
                 "message": "token is not valid"
             })
             return
 
-        if not isThisUsernameAdmin(user["username"]):
+        if not mydb.isThisTokenAdmin(token):
             self.write({
                 "message": "token is not valid"
             })
             return
 
-        if (changeTicketStatus(tickets, id, status)):
+        if (mydb.changeTicketStatus(id, status)):
             self.write({
                 "message": "Status Ticket With id -%s- Changed Successfully" % id,
                 "code": "200"
@@ -441,9 +437,8 @@ def make_app():
         (r"/login(.*)", LoginHandler),
         (r"/logout(.*)", LogoutHandler),
         (r"/sendticket(.*)", SendTicketHandler),
-        (r"/gettickets", GetAllTicketsHandler),
         (r"/getticketcli(.*)", UserGetTicketHandler),
-        (r"/closeTicket(.*)", UserCloseTicketHandler),
+        (r"/closeticket(.*)", UserCloseTicketHandler),
         (r"/getticketmod(.*)", AdminGetAllTicketsHandler),
         (r"/restoticketmod(.*)", AdminAnswerToTicketHandler),
         (r"/changestatus(.*)", AdminChangeTicketStatus),
