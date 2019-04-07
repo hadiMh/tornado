@@ -49,6 +49,7 @@ def createUserTicketList(userTicketList):
         }
         i=i+1
     return result
+
 def getQueryParametes(self, parameters):
     returnValues = []
     for value in parameters:
@@ -330,7 +331,7 @@ class AdminGetAllTicketsHandler(MyRequestHandler):
             return
 
         user = mydb.getUserByToken(token)
-
+        print("isthisuseradmin",mydb.isThisTokenAdmin(token))
         if not user or not mydb.isThisTokenAdmin(token):
             self.write({
                 "message": "token is not valid"
@@ -372,14 +373,14 @@ class AdminAnswerToTicketHandler(MyRequestHandler):
             })
             return
 
-        if mydb.saveThisResponseForThisTicket(id, body):
+        if mydb.doesThisTicketExists(id) and mydb.saveThisResponseForThisTicket(id, body):
             self.write({
                 "message": "Response to Ticket With id -%s- Sent Successfully" % id,
                 "code": "200"
             })
         else:
             self.write({
-                "message": "Response to Ticket With id -%s- Was not Successfully" % id,
+                "message": "Response to Ticket With id -%s- Was not Successfully. Please get sure for ticket existence." % id,
                 "code": "200"
             })
 
@@ -410,7 +411,7 @@ class AdminChangeTicketStatus(MyRequestHandler):
             })
             return
 
-        if (mydb.changeTicketStatus(id, status)):
+        if  mydb.doesThisTicketExists(id) and mydb.changeTicketStatus(id, status):
             self.write({
                 "message": "Status Ticket With id -%s- Changed Successfully" % id,
                 "code": "200"
@@ -418,11 +419,10 @@ class AdminChangeTicketStatus(MyRequestHandler):
             return
         else:
             self.write({
-                "message": "No such user or ticket",
+                "message": "No such ticket or user",
                 "code": "404"
             })
             return
-
 
 class DefaultHandler(MyRequestHandler):
     def get(self, *args):
@@ -431,8 +431,7 @@ class DefaultHandler(MyRequestHandler):
 
 def make_app():
     urls = [
-        # ("/", HelloHandler),
-        # (r"/hadi/([^/]+)?", SecondHandler)
+        # GET Urls
         (r"/signup(.*)", SignupHandler),
         (r"/login(.*)", LoginHandler),
         (r"/logout(.*)", LogoutHandler),
@@ -442,6 +441,18 @@ def make_app():
         (r"/getticketmod(.*)", AdminGetAllTicketsHandler),
         (r"/restoticketmod(.*)", AdminAnswerToTicketHandler),
         (r"/changestatus(.*)", AdminChangeTicketStatus),
+
+        # POST Urls
+        (r"/signup", SignupHandler),
+        (r"/login", LoginHandler),
+        (r"/logout", LogoutHandler),
+        (r"/sendticket", SendTicketHandler),
+        (r"/getticketcli", UserGetTicketHandler),
+        (r"/closeticket", UserCloseTicketHandler),
+        (r"/getticketmod", AdminGetAllTicketsHandler),
+        (r"/restoticketmod", AdminAnswerToTicketHandler),
+        (r"/changestatus", AdminChangeTicketStatus),
+
         (r".*", DefaultHandler)
     ]
     return Application(urls)

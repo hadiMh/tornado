@@ -191,6 +191,23 @@ def isThisTokenAdmin(token):
         return True
     return False
 
+def doesThisTicketExists(id):
+    mycursor = mydb.cursor()
+
+    sql = "SELECT * FROM tickets WHERE id = %s"
+    value = (id,)
+
+    mycursor.execute(sql, value)
+
+    myresult = mycursor.fetchall()
+
+    json = []
+
+    if (mycursor.rowcount >= 1):
+        return True
+
+    return False
+
 def saveThisResponseForThisTicket(id, body):
     mycursor = mydb.cursor()
 
