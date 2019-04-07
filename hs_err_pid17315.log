@@ -1,0 +1,377 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 132120576 bytes for committing reserved memory.
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   The process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (os_linux.cpp:2718), pid=17315, tid=17316
+#
+# JRE version:  (11.0.2+9) (build )
+# Java VM: OpenJDK 64-Bit Server VM (11.0.2+9-b159.30, mixed mode, aot, sharing, tiered, compressed oops, g1 gc, linux-amd64)
+# Core dump will be written. Default location: Core dumps may be processed with "/usr/share/apport/apport %p %s %c %d %P" (or dumping to /home/hadimh/PycharmProjects/untitled/core.17315)
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: org.jetbrains.git4idea.http.GitAskPassApp Username for 'https://github.com': 
+
+Host: Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz, 4 cores, 7G, Ubuntu 18.04 LTS
+Time: Mon Apr  8 02:10:48 2019 +0430 elapsed time: 0 seconds (0d 0h 0m 0s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007f07f8012800):  JavaThread "Unknown thread" [_thread_in_vm, id=17316, stack(0x00007f0801c88000,0x00007f0801d89000)]
+
+Stack: [0x00007f0801c88000,0x00007f0801d89000],  sp=0x00007f0801d87200,  free space=1020k
+Native frames: (J=compiled Java code, A=aot compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [libjvm.so+0xd8bbba]  VMError::report_and_die(int, char const*, char const*, __va_list_tag*, Thread*, unsigned char*, void*, void*, char const*, int, unsigned long)+0x18a
+V  [libjvm.so+0xd8ca53]  VMError::report_and_die(Thread*, char const*, int, unsigned long, VMErrorType, char const*, __va_list_tag*)+0x43
+V  [libjvm.so+0x69f978]  report_vm_out_of_memory(char const*, int, unsigned long, VMErrorType, char const*, ...)+0xe8
+V  [libjvm.so+0xb92879]  os::pd_commit_memory_or_exit(char*, unsigned long, unsigned long, bool, char const*)+0xe9
+V  [libjvm.so+0xb8a3ad]  os::commit_memory_or_exit(char*, unsigned long, unsigned long, bool, char const*)+0x1d
+V  [libjvm.so+0x7991d1]  G1PageBasedVirtualSpace::commit_preferred_pages(unsigned long, unsigned long)+0x71
+V  [libjvm.so+0x799325]  G1PageBasedVirtualSpace::commit_internal(unsigned long, unsigned long)+0x85
+V  [libjvm.so+0x79951a]  G1PageBasedVirtualSpace::commit(unsigned long, unsigned long)+0x10a
+V  [libjvm.so+0x79f066]  G1RegionsLargerThanCommitSizeMapper::commit_regions(unsigned int, unsigned long, WorkGang*)+0x46
+V  [libjvm.so+0x807588]  HeapRegionManager::commit_regions(unsigned int, unsigned long, WorkGang*)+0x88
+V  [libjvm.so+0x8080e4]  HeapRegionManager::make_regions_available(unsigned int, unsigned int, WorkGang*)+0x34
+V  [libjvm.so+0x80847e]  HeapRegionManager::expand_at(unsigned int, unsigned int, WorkGang*) [clone .part.146]+0x7e
+V  [libjvm.so+0x769a30]  G1CollectedHeap::expand(unsigned long, WorkGang*, double*)+0xc0
+V  [libjvm.so+0x76a135]  G1CollectedHeap::initialize()+0x6a5
+V  [libjvm.so+0xd4f551]  Universe::initialize_heap()+0x41
+V  [libjvm.so+0xd4f801]  universe_init()+0x41
+V  [libjvm.so+0x81d82f]  init_globals()+0x5f
+V  [libjvm.so+0xd2ce6c]  Threads::create_vm(JavaVMInitArgs*, bool*)+0x3dc
+V  [libjvm.so+0x8c4cdc]  JNI_CreateJavaVM+0x5c
+C  [libjli.so+0x4814]  JavaMain+0x84
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x00000000015b1160, length=0, elements={
+}
+
+Java Threads: ( => current thread )
+
+Other Threads:
+  0x00007f07f8029000 GCTaskThread "GC Thread#0" [stack: 0x00007f07fdc98000,0x00007f07fdd98000] [id=17317]
+  0x00007f07f805a000 ConcurrentGCThread "G1 Main Marker" [stack: 0x00007f07fcbe9000,0x00007f07fcce9000] [id=17318]
+  0x00007f07f805c000 ConcurrentGCThread "G1 Conc#0" [stack: 0x00007f07fcae7000,0x00007f07fcbe7000] [id=17319]
+
+[error occurred during error reporting (printing all threads), id 0xb, SIGSEGV (0xb) at pc=0x00007f08002be0c5]
+
+VM state:not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x00007f07f800ee30] Heap_lock - owner thread: 0x00007f07f8012800
+
+Heap address: 0x0000000083a00000, size: 1990 MB, Compressed Oops mode: Non-zero based: 0x0000000083a00000
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 0
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+Events (0 events):
+No events
+
+
+Dynamic libraries:
+00400000-00401000 r-xp 00000000 08:01 1328655                            /home/hadimh/Downloads/pycharm-professional-2019.1/pycharm-2019.1/jre64/bin/java
+00601000-00602000 r--p 00001000 08:01 1328655                            /home/hadimh/Downloads/pycharm-professional-2019.1/pycharm-2019.1/jre64/bin/java
+00602000-00603000 rw-p 00002000 08:01 1328655                            /home/hadimh/Downloads/pycharm-professional-2019.1/pycharm-2019.1/jre64/bin/java
+01599000-015ba000 rw-p 00000000 00:00 0                                  [heap]
+8b800000-100000000 ---p 00000000 00:00 0 
+7f07d0000000-7f07d0021000 rw-p 00000000 00:00 0 
+7f07d0021000-7f07d4000000 ---p 00000000 00:00 0 
+7f07d6000000-7f07d8000000 rw-p 00000000 00:00 0 
+7f07d8000000-7f07d8021000 rw-p 00000000 00:00 0 
+7f07d8021000-7f07dc000000 ---p 00000000 00:00 0 
+7f07dc1d0000-7f07e0000000 ---p 00000000 00:00 0 
+7f07e0000000-7f07e0021000 rw-p 00000000 00:00 0 
+7f07e0021000-7f07e4000000 ---p 00000000 00:00 0 
+7f07e5d37000-7f07e5fa7000 rwxp 00000000 00:00 0 
+7f07e5fa7000-7f07e62c7000 ---p 00000000 00:00 0 
+7f07e62c7000-7f07e6537000 rwxp 00000000 00:00 0 
+7f07e6537000-7f07ed7ff000 ---p 00000000 00:00 0 
+7f07ed7ff000-7f07eda6f000 rwxp 00000000 00:00 0 
+7f07eda6f000-7f07f4d37000 ---p 00000000 00:00 0 
+7f07f4d37000-7f07f8000000 r--s 00000000 08:01 1470173                    /home/hadimh/Downloads/pycharm-professional-2019.1/pycharm-2019.1/jre64/lib/modules
+7f07f8000000-7f07f8079000 rw-p 00000000 00:00 0 
+7f07f8079000-7f07fc000000 ---p 00000000 00:00 0 
+7f07fc35d000-7f07fcae5000 rw-p 00000000 00:00 0 
+7f07fcae5000-7f07fcae6000 ---p 00000000 00:00 0 
+7f07fcae6000-7f07fcbe7000 rw-p 00000000 00:00 0 
+7f07fcbe7000-7f07fcbe8000 ---p 00000000 00:00 0 
+7f07fcbe8000-7f07fcce9000 rw-p 00000000 00:00 0 
+7f07fcce9000-7f07fd892000 ---p 00000000 00:00 0 
+7f07fd892000-7f07fdc96000 rw-p 00000000 00:00 0 
+7f07fdc96000-7f07fdc97000 ---p 00000000 00:00 0 
+7f07fdc97000-7f07fdd9d000 rw-p 00000000 00:00 0 
+7f07fdd9d000-7f07fde83000 ---p 00000000 00:00 0 
+7f07fde83000-7f07fde88000 rw-p 00000000 00:00 0 
+7f07fde88000-7f07fdf6e000 ---p 00000000 00:00 0 
+7f07fdf6e000-7f07fdf73000 r-xp 00000000 08:01 1470152                    /home/hadimh/Downloads/pycharm-professional-2019.1/pycharm-2019.1/jre64/lib/libjimage.so
+7f07fdf73000-7f07fe173000 ---p 00005000 08:01 1470152                    /home/hadimh/Downloads/pycharm-professional-2019.1/pycharm-2019.1/jre64/lib/libjimage.so
+7f07fe173000-7f07fe174000 r--p 00005000 08:01 1470152                    /home/hadimh/Downloads/pycharm-professional-2019.1/pycharm-2019.1/jre64/lib/libjimage.so
+7f07fe174000-7f07fe175000 rw-p 00006000 08:01 1470152                    /home/hadimh/Downloads/pycharm-professional-2019.1/pycharm-2019.1/jre64/lib/libjimage.so
+7f07fe175000-7f07fe17c000 r-xp 00000000 08:01 1470172                    /home/hadimh/Downloads/pycharm-professional-2019.1/pycharm-2019.1/jre64/lib/libzip.so
+7f07fe17c000-7f07fe37b000 ---p 00007000 08:01 1470172                    /home/hadimh/Downloads/pycharm-professional-2019.1/pycharm-2019.1/jre64/lib/libzip.so
+7f07fe37b000-7f07fe37c000 r--p 00006000 08:01 1470172                    /home/hadimh/Downloads/pycharm-professional-2019.1/pycharm-2019.1/jre64/lib/libzip.so
+7f07fe37c000-7f07fe37d000 rw-p 00007000 08:01 1470172                    /home/hadimh/Downloads/pycharm-professional-2019.1/pycharm-2019.1/jre64/lib/libzip.so
+7f07fe37d000-7f07fe388000 r-xp 00000000 08:01 399176                     /lib/x86_64-linux-gnu/libnss_files-2.27.so
+7f07fe388000-7f07fe587000 ---p 0000b000 08:01 399176                     /lib/x86_64-linux-gnu/libnss_files-2.27.so
+7f07fe587000-7f07fe588000 r--p 0000a000 08:01 399176                     /lib/x86_64-linux-gnu/libnss_files-2.27.so
+7f07fe588000-7f07fe589000 rw-p 0000b000 08:01 399176                     /lib/x86_64-linux-gnu/libnss_files-2.27.so
+7f07fe589000-7f07fe58f000 rw-p 00000000 00:00 0 
+7f07fe58f000-7f07fe5a6000 r-xp 00000000 08:01 399170                     /lib/x86_64-linux-gnu/libnsl-2.27.so
+7f07fe5a6000-7f07fe7a5000 ---p 00017000 08:01 399170                     /lib/x86_64-linux-gnu/libnsl-2.27.so
+7f07fe7a5000-7f07fe7a6000 r--p 00016000 08:01 399170                     /lib/x86_64-linux-gnu/libnsl-2.27.so
+7f07fe7a6000-7f07fe7a7000 rw-p 00017000 08:01 399170                     /lib/x86_64-linux-gnu/libnsl-2.27.so
+7f07fe7a7000-7f07fe7a9000 rw-p 00000000 00:00 0 
+7f07fe7a9000-7f07fe7b4000 r-xp 00000000 08:01 399187                     /lib/x86_64-linux-gnu/libnss_nis-2.27.so
+7f07fe7b4000-7f07fe9b3000 ---p 0000b000 08:01 399187                     /lib/x86_64-linux-gnu/libnss_nis-2.27.so
+7f07fe9b3000-7f07fe9b4000 r--p 0000a000 08:01 399187                     /lib/x86_64-linux-gnu/libnss_nis-2.27.so
+7f07fe9b4000-7f07fe9b5000 rw-p 0000b000 08:01 399187                     /lib/x86_64-linux-gnu/libnss_nis-2.27.so
+7f07fe9b5000-7f07fe9bd000 r-xp 00000000 08:01 399172                     /lib/x86_64-linux-gnu/libnss_compat-2.27.so
+7f07fe9bd000-7f07febbd000 ---p 00008000 08:01 399172                     /lib/x86_64-linux-gnu/libnss_compat-2.27.so
+7f07febbd000-7f07febbe000 r--p 00008000 08:01 399172                     /lib/x86_64-linux-gnu/libnss_compat-2.27.so
+7f07febbe000-7f07febbf000 rw-p 00009000 08:01 399172                     /lib/x86_64-linux-gnu/libnss_compat-2.27.so
+7f07febbf000-7f07febe8000 r-xp 00000000 08:01 1470142                    /home/hadimh/Downloads/pycharm-professional-2019.1/pycharm-2019.1/jre64/lib/libjava.so
+7f07febe8000-7f07fede7000 ---p 00029000 08:01 1470142                    /home/hadimh/Downloads/pycharm-professional-2019.1/pycharm-2019.1/jre64/lib/libjava.so
+7f07fede7000-7f07fede8000 r--p 00028000 08:01 1470142                    /home/hadimh/Downloads/pycharm-professional-2019.1/pycharm-2019.1/jre64/lib/libjava.so
+7f07fede8000-7f07fedea000 rw-p 00029000 08:01 1470142                    /home/hadimh/Downloads/pycharm-professional-2019.1/pycharm-2019.1/jre64/lib/libjava.so
+7f07fedea000-7f07fedf7000 r-xp 00000000 08:01 1470171                    /home/hadimh/Downloads/pycharm-professional-2019.1/pycharm-2019.1/jre64/lib/libverify.so
+7f07fedf7000-7f07feff6000 ---p 0000d000 08:01 1470171                    /home/hadimh/Downloads/pycharm-professional-2019.1/pycharm-2019.1/jre64/lib/libverify.so
+7f07feff6000-7f07feff8000 r--p 0000c000 08:01 1470171                    /home/hadimh/Downloads/pycharm-professional-2019.1/pycharm-2019.1/jre64/lib/libverify.so
+7f07feff8000-7f07feff9000 rw-p 0000e000 08:01 1470171                    /home/hadimh/Downloads/pycharm-professional-2019.1/pycharm-2019.1/jre64/lib/libverify.so
+7f07feff9000-7f07ff000000 r-xp 00000000 08:01 399227                     /lib/x86_64-linux-gnu/librt-2.27.so
+7f07ff000000-7f07ff1ff000 ---p 00007000 08:01 399227                     /lib/x86_64-linux-gnu/librt-2.27.so
+7f07ff1ff000-7f07ff200000 r--p 00006000 08:01 399227                     /lib/x86_64-linux-gnu/librt-2.27.so
+7f07ff200000-7f07ff201000 rw-p 00007000 08:01 399227                     /lib/x86_64-linux-gnu/librt-2.27.so
+7f07ff201000-7f07ff218000 r-xp 00000000 08:01 399306                     /lib/x86_64-linux-gnu/libgcc_s.so.1
+7f07ff218000-7f07ff417000 ---p 00017000 08:01 399306                     /lib/x86_64-linux-gnu/libgcc_s.so.1
+7f07ff417000-7f07ff418000 r--p 00016000 08:01 399306                     /lib/x86_64-linux-gnu/libgcc_s.so.1
+7f07ff418000-7f07ff419000 rw-p 00017000 08:01 399306                     /lib/x86_64-linux-gnu/libgcc_s.so.1
+7f07ff419000-7f07ff5b6000 r-xp 00000000 08:01 399149                     /lib/x86_64-linux-gnu/libm-2.27.so
+7f07ff5b6000-7f07ff7b5000 ---p 0019d000 08:01 399149                     /lib/x86_64-linux-gnu/libm-2.27.so
+7f07ff7b5000-7f07ff7b6000 r--p 0019c000 08:01 399149                     /lib/x86_64-linux-gnu/libm-2.27.so
+7f07ff7b6000-7f07ff7b7000 rw-p 0019d000 08:01 399149                     /lib/x86_64-linux-gnu/libm-2.27.so
+7f07ff7b7000-7f07ff930000 r-xp 00000000 08:01 658832                     /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25
+7f07ff930000-7f07ffb30000 ---p 00179000 08:01 658832                     /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25
+7f07ffb30000-7f07ffb3a000 r--p 00179000 08:01 658832                     /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25
+7f07ffb3a000-7f07ffb3c000 rw-p 00183000 08:01 658832                     /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25
+7f07ffb3c000-7f07ffb40000 rw-p 00000000 00:00 0 
+7f07ffb40000-7f0800bd8000 r-xp 00000000 08:01 1588348                    /home/hadimh/Downloads/pycharm-professional-2019.1/pycharm-2019.1/jre64/lib/server/libjvm.so
+7f0800bd8000-7f0800dd8000 ---p 01098000 08:01 1588348                    /home/hadimh/Downloads/pycharm-professional-2019.1/pycharm-2019.1/jre64/lib/server/libjvm.so
+7f0800dd8000-7f0800ea6000 r--p 01098000 08:01 1588348                    /home/hadimh/Downloads/pycharm-professional-2019.1/pycharm-2019.1/jre64/lib/server/libjvm.so
+7f0800ea6000-7f0800ee0000 rw-p 01166000 08:01 1588348                    /home/hadimh/Downloads/pycharm-professional-2019.1/pycharm-2019.1/jre64/lib/server/libjvm.so
+7f0800ee0000-7f0800f39000 rw-p 00000000 00:00 0 
+7f0800f39000-7f0801120000 r-xp 00000000 08:01 399086                     /lib/x86_64-linux-gnu/libc-2.27.so
+7f0801120000-7f0801320000 ---p 001e7000 08:01 399086                     /lib/x86_64-linux-gnu/libc-2.27.so
+7f0801320000-7f0801324000 r--p 001e7000 08:01 399086                     /lib/x86_64-linux-gnu/libc-2.27.so
+7f0801324000-7f0801326000 rw-p 001eb000 08:01 399086                     /lib/x86_64-linux-gnu/libc-2.27.so
+7f0801326000-7f080132a000 rw-p 00000000 00:00 0 
+7f080132a000-7f080132d000 r-xp 00000000 08:01 399109                     /lib/x86_64-linux-gnu/libdl-2.27.so
+7f080132d000-7f080152c000 ---p 00003000 08:01 399109                     /lib/x86_64-linux-gnu/libdl-2.27.so
+7f080152c000-7f080152d000 r--p 00002000 08:01 399109                     /lib/x86_64-linux-gnu/libdl-2.27.so
+7f080152d000-7f080152e000 rw-p 00003000 08:01 399109                     /lib/x86_64-linux-gnu/libdl-2.27.so
+7f080152e000-7f080153d000 r-xp 00000000 08:01 1470114                    /home/hadimh/Downloads/pycharm-professional-2019.1/pycharm-2019.1/jre64/lib/jli/libjli.so
+7f080153d000-7f080173c000 ---p 0000f000 08:01 1470114                    /home/hadimh/Downloads/pycharm-professional-2019.1/pycharm-2019.1/jre64/lib/jli/libjli.so
+7f080173c000-7f080173d000 r--p 0000e000 08:01 1470114                    /home/hadimh/Downloads/pycharm-professional-2019.1/pycharm-2019.1/jre64/lib/jli/libjli.so
+7f080173d000-7f080173e000 rw-p 0000f000 08:01 1470114                    /home/hadimh/Downloads/pycharm-professional-2019.1/pycharm-2019.1/jre64/lib/jli/libjli.so
+7f080173e000-7f0801758000 r-xp 00000000 08:01 399219                     /lib/x86_64-linux-gnu/libpthread-2.27.so
+7f0801758000-7f0801957000 ---p 0001a000 08:01 399219                     /lib/x86_64-linux-gnu/libpthread-2.27.so
+7f0801957000-7f0801958000 r--p 00019000 08:01 399219                     /lib/x86_64-linux-gnu/libpthread-2.27.so
+7f0801958000-7f0801959000 rw-p 0001a000 08:01 399219                     /lib/x86_64-linux-gnu/libpthread-2.27.so
+7f0801959000-7f080195d000 rw-p 00000000 00:00 0 
+7f080195d000-7f0801979000 r-xp 00000000 08:01 399258                     /lib/x86_64-linux-gnu/libz.so.1.2.11
+7f0801979000-7f0801b78000 ---p 0001c000 08:01 399258                     /lib/x86_64-linux-gnu/libz.so.1.2.11
+7f0801b78000-7f0801b79000 r--p 0001b000 08:01 399258                     /lib/x86_64-linux-gnu/libz.so.1.2.11
+7f0801b79000-7f0801b7a000 rw-p 0001c000 08:01 399258                     /lib/x86_64-linux-gnu/libz.so.1.2.11
+7f0801b7a000-7f0801ba1000 r-xp 00000000 08:01 399058                     /lib/x86_64-linux-gnu/ld-2.27.so
+7f0801c39000-7f0801c81000 rw-p 00000000 00:00 0 
+7f0801c81000-7f0801c88000 ---p 00000000 00:00 0 
+7f0801c88000-7f0801c8c000 ---p 00000000 00:00 0 
+7f0801c8c000-7f0801d8b000 rw-p 00000000 00:00 0 
+7f0801d95000-7f0801d9d000 rw-s 00000000 08:01 676779                     /tmp/hsperfdata_hadimh/17315
+7f0801d9d000-7f0801d9e000 ---p 00000000 00:00 0 
+7f0801d9e000-7f0801d9f000 r--p 00000000 00:00 0 
+7f0801d9f000-7f0801da1000 rw-p 00000000 00:00 0 
+7f0801da1000-7f0801da2000 r--p 00027000 08:01 399058                     /lib/x86_64-linux-gnu/ld-2.27.so
+7f0801da2000-7f0801da3000 rw-p 00028000 08:01 399058                     /lib/x86_64-linux-gnu/ld-2.27.so
+7f0801da3000-7f0801da4000 rw-p 00000000 00:00 0 
+7ffd571b6000-7ffd571d8000 rw-p 00000000 00:00 0                          [stack]
+7ffd571e7000-7ffd571ea000 r--p 00000000 00:00 0                          [vvar]
+7ffd571ea000-7ffd571ec000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+
+
+VM Arguments:
+java_command: org.jetbrains.git4idea.http.GitAskPassApp Username for 'https://github.com': 
+java_class_path (initial): /home/hadimh/Downloads/pycharm-professional-2019.1/pycharm-2019.1/plugins/git4idea/lib/git4idea-rt.jar:/home/hadimh/Downloads/pycharm-professional-2019.1/pycharm-2019.1/lib/xmlrpc-2.0.1.jar:/home/hadimh/Downloads/pycharm-professional-2019.1/pycharm-2019.1/lib/commons-codec-1.10.jar:/home/hadimh/Downloads/pycharm-professional-2019.1/pycharm-2019.1/lib/util.jar
+Launcher Type: SUN_STANDARD
+
+[Global flags]
+     intx CICompilerCount                          = 3                                         {product} {ergonomic}
+     uint ConcGCThreads                            = 1                                         {product} {ergonomic}
+     uint G1ConcRefinementThreads                  = 4                                         {product} {ergonomic}
+   size_t G1HeapRegionSize                         = 1048576                                   {product} {ergonomic}
+    uintx GCDrainStackTargetSize                   = 64                                        {product} {ergonomic}
+   size_t InitialHeapSize                          = 132120576                                 {product} {ergonomic}
+   size_t MarkStackSize                            = 4194304                                   {product} {ergonomic}
+   size_t MaxHeapSize                              = 2086666240                                {product} {ergonomic}
+   size_t MinHeapDeltaBytes                        = 1048576                                   {product} {ergonomic}
+    uintx NonNMethodCodeHeapSize                   = 5830092                                {pd product} {ergonomic}
+    uintx NonProfiledCodeHeapSize                  = 122914074                              {pd product} {ergonomic}
+    uintx ProfiledCodeHeapSize                     = 122914074                              {pd product} {ergonomic}
+    uintx ReservedCodeCacheSize                    = 251658240                              {pd product} {ergonomic}
+     bool SegmentedCodeCache                       = true                                      {product} {ergonomic}
+     bool UseCompressedClassPointers               = true                                 {lp64_product} {ergonomic}
+     bool UseCompressedOops                        = true                                 {lp64_product} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {ergonomic}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags
+ #1: stderr all=off uptime,level,tags
+
+Environment Variables:
+PATH=/usr/lib/git-core:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+USERNAME=hadimh
+SHELL=/bin/bash
+DISPLAY=:0
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0xd8cab0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGBUS: [libjvm.so+0xd8cab0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGFPE: [libjvm.so+0xd8cab0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGPIPE: [libjvm.so+0xb8e900], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGXFSZ: [libjvm.so+0xb8e900], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGILL: [libjvm.so+0xd8cab0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGUSR2: [libjvm.so+0xb8e7a0], sa_mask[0]=00100000000000000000000000000000, sa_flags=SA_RESTART|SA_SIGINFO
+SIGHUP: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGINT: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGTERM: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGQUIT: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+
+
+---------------  S Y S T E M  ---------------
+
+OS:DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=18.04
+DISTRIB_CODENAME=bionic
+DISTRIB_DESCRIPTION="Ubuntu 18.04 LTS"
+uname:Linux 4.15.0-20-generic #21-Ubuntu SMP Tue Apr 24 06:16:15 UTC 2018 x86_64
+libc:glibc 2.27 NPTL 2.27 
+rlimit: STACK 8192k, CORE 0k, NPROC 31584, NOFILE 4096, AS infinity, DATA infinity, FSIZE infinity
+load average:2.07 1.39 1.18
+
+/proc/meminfo:
+MemTotal:        8144452 kB
+MemFree:          119208 kB
+MemAvailable:      49688 kB
+Buffers:            3396 kB
+Cached:          1358636 kB
+SwapCached:         3844 kB
+Active:          3699180 kB
+Inactive:         994956 kB
+Active(anon):    3646736 kB
+Inactive(anon):   955120 kB
+Active(file):      52444 kB
+Inactive(file):    39836 kB
+Unevictable:          64 kB
+Mlocked:              64 kB
+SwapTotal:       1459804 kB
+SwapFree:              0 kB
+Dirty:               108 kB
+Writeback:             0 kB
+AnonPages:       3328508 kB
+Mapped:           168228 kB
+Shmem:           1269620 kB
+Slab:             246020 kB
+SReclaimable:      42560 kB
+SUnreclaim:       203460 kB
+KernelStack:       17936 kB
+PageTables:        70444 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:     5532028 kB
+Committed_AS:   12826192 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:           0 kB
+VmallocChunk:          0 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:         0 kB
+ShmemHugePages:        0 kB
+ShmemPmdMapped:        0 kB
+CmaTotal:              0 kB
+CmaFree:               0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+DirectMap4k:      765760 kB
+DirectMap2M:     7622656 kB
+DirectMap1G:     2097152 kB
+
+
+/proc/sys/kernel/threads-max (system-wide limit on the number of threads):
+63168
+
+
+/proc/sys/vm/max_map_count (maximum number of memory map areas a process may have):
+65530
+
+
+/proc/sys/kernel/pid_max (system-wide limit on number of process identifiers):
+131072
+
+
+
+container (cgroup) information:
+container_type: cgroupv1
+cpu_cpuset_cpus: 0-3
+cpu_memory_nodes: 0
+active_processor_count: 4
+cpu_quota: -1
+cpu_period: 100000
+cpu_shares: -1
+memory_limit_in_bytes: -1
+memory_and_swap_limit_in_bytes: -2
+memory_soft_limit_in_bytes: -1
+memory_usage_in_bytes: 4804157440
+memory_max_usage_in_bytes: 606208000
+
+
+CPU:total 4 (initial active 4) (1 cores per cpu, 1 threads per core) family 6 model 158 stepping 9, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, avx2, aes, clmul, erms, 3dnowpref, lzcnt, tsc, tscinvbit, bmi1, bmi2, adx, fma
+CPU Model and flags from /proc/cpuinfo:
+model name	: Intel(R) Core(TM) i7-7700HQ CPU @ 2.80GHz
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon nopl xtopology tsc_reliable nonstop_tsc cpuid pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch cpuid_fault invpcid_single pti fsgsbase tsc_adjust bmi1 avx2 smep bmi2 invpcid mpx rdseed adx smap clflushopt xsaveopt xsavec xsaves ibpb ibrs stibp arat arch_capabilities
+
+Memory: 4k page, physical 8144452k(119208k free), swap 1459804k(0k free)
+
+vm_info: OpenJDK 64-Bit Server VM (11.0.2+9-b159.30) for linux-amd64 JRE (11.0.2+9-b159.30), built on Mar 19 2019 06:01:56 by "" with gcc 4.8.5 20150623 (Red Hat 4.8.5-28)
+
+END.

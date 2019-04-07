@@ -32,22 +32,25 @@ import collections
 
 def createUserTicketList(userTicketList):
     result = {}
-
-    result[" tickets"] = "There Are -%d- Ticket" % len(userTicketList)
+    if userTicketList:
+        ticketListLength = len(userTicketList)
+    else:
+        ticketListLength = 0
+    result[" tickets"] = "There Are -%d- Ticket" % ticketListLength
     result[" code"] = "200"
 
     i = 0
-
-    for value in userTicketList:
-        result["block %d" % i] = {
-            "subject": value["subject"],
-            "body": value["body"],
-            "status": value["status"],
-            "id": value["id"],
-            "date": "2019-05-21 15:18:17",
-            "response": value["response"]
-        }
-        i=i+1
+    if(userTicketList):
+        for value in userTicketList:
+            result["block %d" % i] = {
+                "subject": value["subject"],
+                "body": value["body"],
+                "status": value["status"],
+                "id": value["id"],
+                "date": "2019-05-21 15:18:17",
+                "response": value["response"]
+            }
+            i=i+1
     return result
 
 def getQueryParametes(self, parameters):
@@ -182,7 +185,8 @@ class SignupHandler(MyRequestHandler):
         else:
             self.write(
                 {
-                    "message": "user already exists"
+                    "message": "user already exists",
+                    "code": "400"
                 }
             )
 
@@ -195,7 +199,9 @@ class SignupHandler(MyRequestHandler):
         ## lastname = re.search("(?<=lastname=)([^&]+)?", self.request.uri)
 
         if (not username or not password):
-            self.write({"message:": "username and password are required"})
+            self.write({
+                "message:": "username and password are required",
+                "code": "400"})
             return
 
         if (not firstname):
@@ -225,7 +231,8 @@ class SignupHandler(MyRequestHandler):
         else:
             self.write(
                 {
-                    "message": "user already exists"
+                    "message": "user already exists",
+                    "code": "300"
                 }
             )
 
@@ -237,7 +244,8 @@ class LoginHandler(MyRequestHandler):
         # if username or password are not in the request
         if(not username or not password):
             self.write({
-                "message": "username and password are required."
+                "message": "username and password are required.",
+                "code": "400"
             })
             return
 
@@ -246,7 +254,8 @@ class LoginHandler(MyRequestHandler):
         # if user doesnt exist, tell it to response
         if not user:
             self.write({
-                "message": "user doesn't exist in the database."
+                "message": "user doesn't exist in the database.",
+                "code": "400"
             })
             return
         print("user", user)
@@ -262,7 +271,8 @@ class LoginHandler(MyRequestHandler):
         else:
             # if the password is not correct
             self.write({
-                "message": "username or password is not correct"
+                "message": "username or password is not correct",
+                "code": "400"
             })
 
     def post(self, *args, **kwargs):
@@ -444,8 +454,10 @@ class UserGetTicketHandler(MyRequestHandler):
             return
 
         userTickets = mydb.getAllUserTickets(user['username'])
-
-        numberOfTickets = len(userTickets)
+        if userTickets:
+            numberOfTickets = len(userTickets)
+        else:
+            numberOfTickets = 0
         correctFormatUserTicketsList = createUserTicketList(userTickets)
 
         self.write(
@@ -482,7 +494,7 @@ class UserCloseTicketHandler(MyRequestHandler):
         token, id = getQueryParametes(self, ['token', 'id'])
         user = mydb.getUserByToken(token)
         userTickets = mydb.getAllUserTickets(user["username"])
-        if(mydb.changeTicketStatus(id, "Closed")):
+        if mydb.doesThisTicketExists(id) and mydb.changeTicketStatus(id, "Closed"):
             self.write({
                 "message": "Ticket With id -%s- Closed Successfully" % id,
                 "code": "200"
