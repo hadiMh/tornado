@@ -63,4 +63,9 @@ With the default user, password, and database you can just run:
 $ python server.py
 ```
 
-I With you enjoy this code.
+I wish you enjoy this code.
+
+# License
+
+*MIT license
+*Copyright 2019 © TicketsApp Project.
