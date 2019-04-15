@@ -56,7 +56,7 @@ Then now you Must Put Database information in mydb.py from line 5 10
 
 notice that I used an environmental variable to store the databese password. If you wanna publish your code or show it to some people it is better to make secret and sensitive information as env variables to make them secure.
 
-Step3 : Run the bank project
+Step3 : Run the ticketsapp project
 
 With the default user, password, and database you can just run:
 ```
