@@ -12,23 +12,7 @@ import mydb
 import json
 import collections
 
-# admins = [
-#     {
-#         "username": "hadi"
-#     }
-# ]
-#
-# users = [
-#     {
-#         "username": "hadi",
-#         "password": "1234",
-#         "firstname": "hadi",
-#         "lastname": "",
-#         "token": ""
-#     }
-# ]
-#
-# tickets = []
+
 
 def createUserTicketList(userTicketList):
     result = {}
@@ -73,20 +57,7 @@ def getPostParameters(self, parameters):
             returnValues.append(0)
     return returnValues
 
-# def getUserByToken(token):
-#     for item in users:
-#         if(item["token"] == token):
-#             return item
-#     return 0
 
-# global methods
-# def findUser(username):
-#     for user in users:
-#         print("user['username']:", user["username"])
-#         print("username:", username)
-#         if(user["username"] == username):
-#             return user
-#     return -1
 
 def generateRandomToken():
     return hexlify(os.urandom(16)).decode('utf-8')
@@ -101,37 +72,6 @@ def getUserLoginToken(username):
             mydb.saveTokenToThisUser(username, user['token'])
         return user['token']
 
-# def changeTicketStatus(tickets, ticketId, newStatus):
-#     for item in tickets:
-#         if '%d'%item["id"] == ticketId:
-#             item["status"] = newStatus
-#             return 1
-#     return 0
-
-# def isThisUsernameAdmin(username):
-#     for admin in admins:
-#         if(admin["username"] == username):
-#             return True
-#     return False
-
-# def getUserAllTickets(username):
-#     userAllTickets = []
-#     admin = False
-#     if isThisUsernameAdmin(username):
-#         admin = True
-#     for item in tickets:
-#         if admin or item["username"] == username:
-#             userAllTickets.append(item)
-#
-#     return userAllTickets
-
-# def saveThisResponseForThisTicket(ticketId, body):
-#     for item in tickets:
-#         if '%d'%item["id"] == ticketId:
-#             item["response"] = body
-#             item["status"] = "Closed"
-#             return True
-#     return False
 
 # request handler classes
 class MyRequestHandler(RequestHandler):
@@ -140,19 +80,11 @@ class MyRequestHandler(RequestHandler):
     def hello(self):
         print("second function")
 
-# class LoginHandler(MyRequestHandler):
-#     def get(self, *args):
-#         users.append({"username": args[0], "password": args[1]})
-#         # print(users)
-#         self.write({'message': users})
 
 class SignupHandler(MyRequestHandler):
     def get(self, *args):
         username, password, firstname, lastname = getQueryParametes(self, ['username', 'password', 'firstname', 'lastname'])
-        ## username = re.search("(?<=username=)([^&]+)?", self.request.uri)
-        ## password = re.search("(?<=password=)([^&]+)?", self.request.uri)
-        ## firstname = re.search("(?<=firstname=)([^&]+)?", self.request.uri)
-        ## lastname = re.search("(?<=lastname=)([^&]+)?", self.request.uri)
+
 
         if(not username or not password):
             self.write({"message:": "username and password are required"})
@@ -169,15 +101,7 @@ class SignupHandler(MyRequestHandler):
 
         if not userExists:
             mydb.createUserInUsersTable(username, password, firstname, lastname)
-            # users.append(
-            #     {
-            #         "username": username,
-            #         "password": password,
-            #         "firstname": firstname,
-            #         "lastname": lastname,
-            #         "token": ""
-            #     }
-            # )
+
             self.write({
                 "message": "Signed Up Successfully",
                 "code": "200"
@@ -193,10 +117,7 @@ class SignupHandler(MyRequestHandler):
     def post(self, *args, **kwargs):
         username, password, firstname, lastname = getPostParameters(self,
                                                                     ['username', 'password', 'firstname', 'lastname'])
-        ## username = re.search("(?<=username=)([^&]+)?", self.request.uri)
-        ## password = re.search("(?<=password=)([^&]+)?", self.request.uri)
-        ## firstname = re.search("(?<=firstname=)([^&]+)?", self.request.uri)
-        ## lastname = re.search("(?<=lastname=)([^&]+)?", self.request.uri)
+
 
         if (not username or not password):
             self.write({
@@ -215,15 +136,7 @@ class SignupHandler(MyRequestHandler):
 
         if not userExists:
             mydb.createUserInUsersTable(username, password, firstname, lastname)
-            # users.append(
-            #     {
-            #         "username": username,
-            #         "password": password,
-            #         "firstname": firstname,
-            #         "lastname": lastname,
-            #         "token": ""
-            #     }
-            # )
+
             self.write({
                 "message": "Signed Up Successfully",
                 "code": "200"
