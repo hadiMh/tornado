@@ -67,5 +67,5 @@ I wish you enjoy this code.
 
 # License
 
-*MIT license
-*Copyright 2019 © TicketsApp Project.
+* MIT license
+* Copyright 2019 © TicketsApp Project.
